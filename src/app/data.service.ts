@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+// Handle the Errors
+import { throwError } from 'rxjs';
+import { retry } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root',
 })
