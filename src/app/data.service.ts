@@ -26,9 +26,10 @@ export class DataService {
     return throwError(errorMessage);
   }
 
+  // to catch the error and retry request
   public sendGetRequest() {
     return this.httpClient
       .get(this.REST_API_SERVER)
-      .pipe(catchError(this.handleError));
+      .pipe(retry(3), catchError(this.handleError)); // retry to send the failed HTTP request 3 times.
   }
 }
