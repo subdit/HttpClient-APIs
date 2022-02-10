@@ -38,3 +38,7 @@ Created Faker dummy data in database.json
 created generate.js to scaffolding and generate the data in a Database.json file.
 Run npm run generate to generate and push the Faker data into Database.json file
 Run npm run server to run the server in locallhost://3000/products
+
+## Recap
+
+this particularly example project show you how to set up HttpClient and send HTTP GET requests with parameters using the HttpClient.get() method, how to handle HTTP errors using the RxJS throwError() and catchError() operators, unsubscribe from RxJS Observables for the cancelled HTTP requests using the takeUntil() operator and retry failed requests with the retry() operator and finally how to deploy our application to Firebase hosting using the latest ng deploy feature available from Angular 8.3+.

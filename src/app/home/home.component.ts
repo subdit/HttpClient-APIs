@@ -3,6 +3,8 @@ import { DataService } from '../data.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
+import { Product } from '../product';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,14 +13,15 @@ import { HttpResponse } from '@angular/common/http';
 export class HomeComponent implements OnInit, OnDestroy {
   // add OnDestroy method to unscribe the Observables.
 
-  products: any = [];
+  products: Product[] = [];
 
   destroy$: Subject<boolean> = new Subject<boolean>(); // Set destroy Subject to emit the boolean value
 
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    this.dataService['sendGetRequest']()
+    this.dataService
+      .sendGetRequest()
       .pipe(takeUntil(this.destroy$)) // add takUntil method to unsubscribe
       .subscribe((res: HttpResponse<any>) => {
         console.log(res, 'catch error');

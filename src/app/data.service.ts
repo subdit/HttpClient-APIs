@@ -4,6 +4,7 @@ import {
   HttpErrorResponse,
   HttpParams,
 } from '@angular/common/http';
+import { Product } from './product';
 
 // Handle the Errors
 import { throwError } from 'rxjs';
@@ -37,9 +38,24 @@ export class DataService {
     return throwError(errorMessage);
   }
 
-  // to catch the error and retry request
+  public sendGetRequest() {
+    return this.httpClient
+      .get<Product[]>(this.REST_API_SERVER, {
+        params: new HttpParams({ fromString: '_page=1&_limit=20' }),
+        observe: 'response',
+      })
+      .pipe(
+        retry(3),
+        catchError(this.handleError),
+        tap((res) => {
+          console.log(res.headers.get('Link'));
+          this.parseLinkHeader(res.headers.get('Link'));
+        })
+      );
+  }
+
   public sendGetRequestToUrl(url: string) {
-    return this.httpClient.get(url, { observe: 'response' }).pipe(
+    return this.httpClient.get<Product[]>(url, { observe: 'response' }).pipe(
       retry(3),
       catchError(this.handleError),
       tap((res) => {

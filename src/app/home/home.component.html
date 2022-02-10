@@ -3,7 +3,7 @@
 
   <mat-card *ngFor="let product of products" style="margin-top: 12px">
     <mat-card-header>
-      <mat-card-title>#{{ products.id }}{{ product.name }}</mat-card-title>
+      <mat-card-title>{{ product.name }}</mat-card-title>
       <mat-card-subtitle
         >Price: {{ product.price }} $/ quantity: {{ product.quantity }}
       </mat-card-subtitle>
