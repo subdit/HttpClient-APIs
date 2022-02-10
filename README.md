@@ -31,3 +31,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 : Import {Injectable} from '@angular/core';
 : HttpClient to handle the Error in both Client-side and Server-side using {ThrowError} from 'rxjs';
 : Using {retry, catchError} from 'rxjs/operators';
+
+## Server set-up
+
+Created Faker dummy data in database.json
+created generate.js to scaffolding and generate the data in a Database.json file.
+Run npm run generate to generate and push the Faker data into Database.json file
+Run npm run server to run the server in locallhost://3000/products
