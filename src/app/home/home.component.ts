@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   products: any = [];
 
-  destroy$: Subject<boolean> = new Subject<boolean>(); // Set destroy Subject
+  destroy$: Subject<boolean> = new Subject<boolean>(); // Set destroy Subject to emit the boolean value
 
   constructor(private dataService: DataService) {}
 
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.destroy$.next(true);
-    // Unsubscribe from the subject to prevent the data leaks, when the user about to leave the component.
+    // Unsubscribe from the subject to prevent the data leaks, when the user about to leave the component before the HTTP response is received
     this.destroy$.unsubscribe();
   }
 }
