@@ -13,6 +13,7 @@ import { retry, catchError, tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class DataService {
+  [x: string]: any;
   private REST_API_SERVER = 'http://localhost:3000/products';
 
   // Define the strings varialbles
@@ -37,23 +38,19 @@ export class DataService {
   }
 
   // to catch the error and retry request
-  public sendGetRequest() {
-    // Add safe, Url encoded_page and limit parameter
-    return this.httpClient
-      .get(this.REST_API_SERVER, {
-        params: new HttpParams({ fromString: '_page=1&_limit=20' }), //   params: new HttpParams({ fromString: '_page=1&_limit=20' }),
-        observe: 'response',
+  public sendGetRequestToUrl(url: string) {
+    return this.httpClient.get(url, { observe: 'response' }).pipe(
+      retry(3),
+      catchError(this.handleError),
+      tap((res) => {
+        console.log(res.headers.get('Link'));
+        this.parseLinkHeader(res.headers.get('Link'));
       })
-      .pipe(
-        retry(3), // retry to send the failed HTTP request 3 times.
-        catchError(this.handleError),
-        tap((res) => {
-          console.log(res.headers.get('Link'));
-        })
-      );
+    );
   }
+
   // ParseLinkHeader() method which parses the Link header and populate the previous variable accordingly
-  parseLinkHeader(header: string) {
+  parseLinkHeader(header: any) {
     if (header.length == 0) {
       return;
     }
