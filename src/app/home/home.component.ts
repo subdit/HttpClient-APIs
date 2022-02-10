@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-
+import { HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -21,9 +21,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.dataService
       .sendGetRequest()
       .pipe(takeUntil(this.destroy$)) // add takUntil method to unsubscribe
-      .subscribe((data: any = []) => {
-        console.log(data, 'catch error');
-        this.products = data;
+      .subscribe((res: HttpResponse<any>) => {
+        console.log(res, 'catch error');
+        this.products = res.body;
       });
   }
   ngOnDestroy() {
