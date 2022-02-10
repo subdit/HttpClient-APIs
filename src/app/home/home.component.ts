@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +7,14 @@ import { Routes, RouterModule } from '@angular/router';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  title: string = 'HttpClient';
-  constructor() {}
+  products: any = [];
 
-  ngOnInit(): void {}
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+    this.dataService.sendGetRequest().subscribe((data: any = []) => {
+      console.log(data, 'catch error');
+      this.products = data;
+    });
+  }
 }
