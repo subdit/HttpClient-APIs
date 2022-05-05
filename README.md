@@ -1,5 +1,5 @@
 # HttpClient-APIs/Angular-12/HttpClient/Rxjs
-## Technology: Angular 12, Rxjs and Http Client.
+Technology: Angular 12, Rxjs and Http Client.
 ## Hosting project at firebase: https://drive-clone-80ecf.web.app/home
 
 ## recap
